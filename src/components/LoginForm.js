@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import validate from '../services/validate';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
     layout: {
@@ -55,12 +56,16 @@ function useForm({ initialFormData, onSubmit, validate }) {
         e.preventDefault();
         await new Promise((r) => setTimeout(r, 1000));
         setErrors(validate(formData));
+        //sendApi();
+        axios.get('/api/index').then((response) => {
+            console.log(response);
+        });
     };
-
+  
     useEffect(() => {
         if (submitting) {
           if (Object.keys(errors).length === 0) {
-            onSubmit(formData);
+            //onSubmit(formData); 
           }
           setSubmitting(false);
         }
@@ -75,12 +80,19 @@ function useForm({ initialFormData, onSubmit, validate }) {
     };
 }
 
+function sendApi() {
+    console.log('sendApi start!!!');
+    fetch('http://localhost:8080/index')
+      .then(response =>  response.json())
+      .then(response => {console.log(response)});
+}
+ 
 const LoginForm = () => {
   const classes = useStyles({});
   const { formData, errors, submitting, handleChange, handleSubmit } = useForm({
     initialFormData: { email: '', password: '' },
     onSubmit: (formData) => {
-        alert(JSON.stringify(formData, null, 2))
+        alert(JSON.stringify(formData, null, 2));
     },
     validate,
   })
@@ -98,7 +110,7 @@ const LoginForm = () => {
             로그인
           </Typography>
         </Box>
-        <form method="post" action="/" onSubmit={handleSubmit} className={classes.form}>
+        <form action="" onSubmit={handleSubmit} className={classes.form}>
           <TextField
             margin="normal"
             required
