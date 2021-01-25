@@ -14,7 +14,7 @@ const initialTodos = [
  {
     id: 3,
     text: 'Context 만들기',
-    isDone: false
+    isDone: true
  },
  {
     id: 4,
