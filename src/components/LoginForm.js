@@ -56,16 +56,13 @@ function useForm({ initialFormData, onSubmit, validate }) {
         e.preventDefault();
         await new Promise((r) => setTimeout(r, 1000));
         setErrors(validate(formData));
-        //sendApi();
-        axios.get('/api/index').then((response) => {
-            console.log(response);
-        });
     };
   
     useEffect(() => {
+        console.log('init rendering!');
         if (submitting) {
           if (Object.keys(errors).length === 0) {
-            //onSubmit(formData); 
+            onSubmit(formData); 
           }
           setSubmitting(false);
         }
@@ -79,20 +76,13 @@ function useForm({ initialFormData, onSubmit, validate }) {
         handleSubmit,
     };
 }
-
-function sendApi() {
-    console.log('sendApi start!!!');
-    fetch('http://localhost:8080/index')
-      .then(response =>  response.json())
-      .then(response => {console.log(response)});
-}
  
 const LoginForm = () => {
   const classes = useStyles({});
   const { formData, errors, submitting, handleChange, handleSubmit } = useForm({
     initialFormData: { email: '', password: '' },
-    onSubmit: (formData) => {
-        alert(JSON.stringify(formData, null, 2));
+    onSubmit: () => {
+       axios.get("/v1/index").then((response) => console.log(response))
     },
     validate,
   })
