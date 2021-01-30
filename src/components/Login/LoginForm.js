@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import validate from '../services/validate';
+import validate from '../../services/validate';
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
@@ -59,7 +59,6 @@ function useForm({ initialFormData, onSubmit, validate }) {
     };
   
     useEffect(() => {
-        console.log('init rendering!');
         if (submitting) {
           if (Object.keys(errors).length === 0) {
             onSubmit(formData); 

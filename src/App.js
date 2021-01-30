@@ -1,21 +1,17 @@
-import LoginForm from './components/LoginForm';
+import React from 'react';
 import { createGlobalStyle } from 'styled-components';
-import { Route, Link } from 'react-router-dom';
-import TodoTemplate from './components/TodoTemplate';
-import TodoHead from './components/TodoHead';
-import TodoList from './components/TodoList';
-import TodoCreate from './components/TodoCreate';
-import { TodoProvider } from './components/TodoContext';
+import TodoTemplate from './components/Todo/TodoTemplate';
+import TodoHead from './components/Todo/TodoHead';
+import TodoList from './components/Todo/TodoList';
+import TodoCreate from './components/Todo/TodoCreate';
+import { TodoProvider } from './components/Todo/TodoContext';
 
 const App = () => {
-
-  
   const GlobalStyle = createGlobalStyle`
     body {
       background: #e9ecef;
     }
   `;
-
 
   return (
     <>
