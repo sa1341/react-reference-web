@@ -43,7 +43,7 @@ function todoReducer(state, action) {
 const saveTodoList = async (todo) => {
   try {
     console.log("start saveTodoList");
-    const response = await axios.post("/v1/todos", todo);
+    const response = await axios.post("/api/v1/todos", todo);
     console.log(response);
   } catch (e) {
     console.log(e);
