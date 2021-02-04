@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-import { MdAdd } from 'react-icons/md';
-import { useTodoDispatch, useTodoNextId } from 'components/Todo/TodoContext';
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
+import { MdAdd } from "react-icons/md";
+import { useTodoDispatch, useTodoNextId } from "components/Todo/TodoContext";
+import { Button } from "@material-ui/core";
+import SaveIcon from "@material-ui/icons/Save";
+import { makeStyles } from "@material-ui/core/styles";
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -33,7 +36,7 @@ const CircleButton = styled.button`
   justify-content: center;
 
   transition: 0.125s all ease-in;
-  ${props =>
+  ${(props) =>
     props.open &&
     css`
       background: #ff6b6b;
@@ -70,56 +73,71 @@ const Input = styled.input`
   padding: 12px;
   border-radius: 4px;
   border: 1px solid #dee2e6;
-  width: 100%;
+  width: 70%;
   outline: none;
   font-size: 18px;
   box-sizing: border-box;
 `;
 
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
 
 const TodoCreate = () => {
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState('');
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
 
-    const dispatch = useTodoDispatch();
-    const nextId = useTodoNextId();
+  const dispatch = useTodoDispatch();
+  const nextId = useTodoNextId();
 
-    const onToggle = () => setOpen(!open);
-    const onChange = e => setValue(e.target.value);
-    const onSubmit = e => {
-        e.preventDefault();
-        dispatch({
-            type: 'CREATE',
-            todo: {
-                id: nextId.current,
-                text: value,
-                isDone: false
-            }
-        });
-        setValue('');
-        setOpen(false);
-        nextId.current += 1;
-    };
+  const onToggle = () => setOpen(!open);
+  const onChange = (e) => setValue(e.target.value);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: "CREATE",
+      todo: {
+        id: nextId.current,
+        text: value,
+        isDone: false,
+      },
+    });
+    setValue("");
+    setOpen(false);
+    nextId.current += 1;
+  };
 
-    return (
-        <>
-          {open && (
-              <InsertFormPositioner>
-                  <InsertForm onSubmit={onSubmit}>
-                    <Input 
-                      autoFocus 
-                      placeholder="할 일을 입력 후, Enter를 누르세요" 
-                      value={value}
-                      onChange={onChange}
-                    />
-                  </InsertForm>
-              </InsertFormPositioner>
-          )}
-          <CircleButton onClick={onToggle} open={open}>
-            <MdAdd />
-          </CircleButton>  
-        </>
-    );
+  return (
+    <>
+      {open && (
+        <InsertFormPositioner>
+          <InsertForm onSubmit={onSubmit}>
+            <Input
+              autoFocus
+              placeholder="할 일을 입력 후, Enter를 누르세요"
+              value={value}
+              onChange={onChange}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              className={classes.button}
+              startIcon={<SaveIcon />}
+            >
+              저장
+            </Button>
+          </InsertForm>
+        </InsertFormPositioner>
+      )}
+      <CircleButton onClick={onToggle} open={open}>
+        <MdAdd />
+      </CircleButton>
+    </>
+  );
 };
 
 export default React.memo(TodoCreate);

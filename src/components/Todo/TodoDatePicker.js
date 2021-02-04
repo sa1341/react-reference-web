@@ -1,14 +1,29 @@
 import { Button } from "@material-ui/core";
 import React from "react";
 import { Form } from "react-bootstrap";
+import { makeStyles } from "@material-ui/core/styles";
+import { FullscreenExit } from "@material-ui/icons";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+  todoDatePicker_wrapper: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+}));
 
 const TodoDatePicker = () => {
+  const classes = useStyles();
+
   const handleChange = (e) => {
     console.log(e.target.value);
   };
 
   return (
-    <div>
+    <div className={classes.todoDatePicker_wrapper}>
       <div className="row">
         <div className="col-md-4">
           <Form.Group controlId="dob">
@@ -21,9 +36,9 @@ const TodoDatePicker = () => {
             />
             <Button
               variant="contained"
-              color="primary"
+              color="secondary"
               type="button"
-              style={{ padding: "0", marginLeft: "-50" }}
+              className={classes.button}
             >
               조회
             </Button>
