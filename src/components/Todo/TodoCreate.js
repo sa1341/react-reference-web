@@ -122,6 +122,7 @@ const TodoCreate = () => {
               onChange={onChange}
             />
             <Button
+              onClick={onSubmit}
               variant="contained"
               color="primary"
               size="large"

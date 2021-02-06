@@ -2,7 +2,6 @@ import { Button } from "@material-ui/core";
 import React from "react";
 import { Form } from "react-bootstrap";
 import { makeStyles } from "@material-ui/core/styles";
-import { FullscreenExit } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   button: {
