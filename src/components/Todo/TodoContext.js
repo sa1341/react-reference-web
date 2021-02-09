@@ -12,8 +12,6 @@ const initialTodos = [];
 function todoReducer(state, action) {
   switch (action.type) {
     case "FETCH":
-      console.log("fetched TodoItemList");
-      console.log(action.todo);
       return state.concat(action.todo);
     case "CREATE":
       console.log(action.todo.id);
@@ -43,7 +41,7 @@ const saveTodoItem = async (todo) => {
 
 const deleteTodoItem = async (id) => {
   try {
-    console.log("delete TodoItem!", id);
+    console.log("delete TodoItem", id);
     const response = await axios.delete(`/api/v1/todos/${id}`);
     console.log(response);
   } catch (e) {
@@ -60,8 +58,8 @@ export const TodoProvider = ({ children }) => {
   const nextId = useRef(1);
 
   useEffect(() => {
-    console.log("TodoContext init!");
-    const fetchAllTodoItemList = async () => {
+    console.log("fetch TodoItems");
+    const fetchTodoItems = async () => {
       try {
         const response = await axios.get("/api/v1/todos");
         console.log(response.data);
@@ -70,7 +68,7 @@ export const TodoProvider = ({ children }) => {
         console.log(e);
       }
     };
-    fetchAllTodoItemList();
+    fetchTodoItems();
   }, []);
 
   return (

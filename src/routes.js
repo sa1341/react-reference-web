@@ -16,16 +16,16 @@
 
 */
 // @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import Person from "@material-ui/icons/Person";
 import LocationOn from "@material-ui/icons/LocationOn";
+import ShowChart from "@material-ui/icons/ShowChart";
 // core components/views for Admin layout
-import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
 import Maps from "views/Maps/Maps.js";
 // core components/views for RTL layout
 import TodoApp from "components/Todo/TodoApp";
+import StockApp from "components/Stock/StockApp";
 
 const dashboardRoutes = [
   {
@@ -34,6 +34,14 @@ const dashboardRoutes = [
     rtlName: "TodoList",
     icon: PlaylistAddIcon,
     component: TodoApp,
+    layout: "/admin",
+  },
+  {
+    path: "/stockChart",
+    name: "StockInfo",
+    rtlName: "StockInfo",
+    icon: ShowChart,
+    component: StockApp,
     layout: "/admin",
   },
   {
