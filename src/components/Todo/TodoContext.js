@@ -7,11 +7,14 @@ import React, {
 } from "react";
 import axios from "axios";
 
-const initialTodos = [];
+const initialTodoItems = [];
 
 function todoReducer(state, action) {
   switch (action.type) {
     case "FETCH":
+      return state.concat(action.todo);
+    case "TodoDatePicker":
+      console.log(action.date);
       return state.concat(action.todo);
     case "CREATE":
       console.log(action.todo.id);
@@ -54,7 +57,7 @@ const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
 
 export const TodoProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(todoReducer, initialTodos);
+  const [state, dispatch] = useReducer(todoReducer, initialTodoItems);
   const nextId = useRef(1);
 
   useEffect(() => {

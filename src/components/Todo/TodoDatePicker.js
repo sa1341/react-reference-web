@@ -1,7 +1,9 @@
 import { Button } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { makeStyles } from "@material-ui/core/styles";
+import { useTodoDispatch } from "components/Todo/TodoContext";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -16,9 +18,19 @@ const useStyles = makeStyles((theme) => ({
 
 const TodoDatePicker = () => {
   const classes = useStyles();
-
+  const dispatch = useTodoDispatch();
+  const [date, setDate] = useState(null);
   const handleChange = (e) => {
-    console.log(e.target.value);
+    setDate(e.target.value);
+  };
+  const onClick = async () => {
+    try {
+      const response = axios.get(`/api/v1/todos/${date}`);
+      console.log(response);
+      dispatch({ type: "TodoDatePicker", todo: response.data });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -34,6 +46,7 @@ const TodoDatePicker = () => {
               onChange={handleChange}
             />
             <Button
+              onClick={onClick}
               variant="contained"
               color="secondary"
               type="button"
@@ -42,6 +55,7 @@ const TodoDatePicker = () => {
               조회
             </Button>
           </Form.Group>
+          <h2>{date}</h2>
         </div>
       </div>
     </div>
