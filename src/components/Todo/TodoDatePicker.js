@@ -25,7 +25,7 @@ const TodoDatePicker = () => {
   };
   const onClick = async () => {
     try {
-      const response = axios.get(`/api/v1/todos/${date}`);
+      const response = await axios.get(`/api/v1/todos/${date}`);
       console.log(response);
       dispatch({ type: "TodoDatePicker", todo: response.data });
     } catch (e) {

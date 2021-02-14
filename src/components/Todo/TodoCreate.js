@@ -5,6 +5,7 @@ import { useTodoDispatch, useTodoNextId } from "components/Todo/TodoContext";
 import { Button } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -97,17 +98,28 @@ const TodoCreate = () => {
   const onChange = (e) => setValue(e.target.value);
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch({
-      type: "CREATE",
-      todo: {
-        id: nextId.current,
-        text: value,
-        isDone: false,
-      },
-    });
-    setValue("");
-    setOpen(false);
-    nextId.current += 1;
+    async function saveTodoItem() {
+      try {
+        console.log("Save TodoItem");
+        const todo = {
+          id: "",
+          text: value,
+          isDone: false,
+        };
+        const response = await axios.post("/api/v1/todos", todo);
+        console.log(response);
+        dispatch({
+          type: "CREATE",
+          todo: { ...response.data },
+        });
+        setValue("");
+        setOpen(false);
+        nextId.current += 1;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    saveTodoItem();
   };
 
   return (

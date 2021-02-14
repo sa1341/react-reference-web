@@ -14,11 +14,9 @@ function todoReducer(state, action) {
     case "FETCH":
       return state.concat(action.todo);
     case "TodoDatePicker":
-      console.log(action.date);
       return state.concat(action.todo);
     case "CREATE":
       console.log(action.todo.id);
-      saveTodoItem(action.todo);
       return state.concat(action.todo);
     case "TOGGLE":
       return state.map((todo) =>
@@ -31,16 +29,6 @@ function todoReducer(state, action) {
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 }
-
-const saveTodoItem = async (todo) => {
-  try {
-    console.log("start saveTodoList");
-    const response = await axios.post("/api/v1/todos", todo);
-    console.log(response);
-  } catch (e) {
-    console.log(e);
-  }
-};
 
 const deleteTodoItem = async (id) => {
   try {
@@ -60,6 +48,7 @@ export const TodoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialTodoItems);
   const nextId = useRef(1);
 
+  /*
   useEffect(() => {
     console.log("fetch TodoItems");
     const fetchTodoItems = async () => {
@@ -73,6 +62,7 @@ export const TodoProvider = ({ children }) => {
     };
     fetchTodoItems();
   }, []);
+  */
 
   return (
     <TodoStateContext.Provider value={state}>
