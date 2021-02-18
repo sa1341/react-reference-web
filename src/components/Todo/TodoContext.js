@@ -14,8 +14,10 @@ function todoReducer(state, action) {
     case "FETCH":
       return state.concat(action.todo);
     case "TodoDatePicker":
-      return state.concat(action.todo);
+      state = action.todo;
+      return state;
     case "CREATE":
+      console.log(action.todo.key);
       console.log(action.todo.id);
       return state.concat(action.todo);
     case "TOGGLE":

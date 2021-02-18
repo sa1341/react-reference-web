@@ -55,7 +55,6 @@ const TodoDatePicker = () => {
               조회
             </Button>
           </Form.Group>
-          <h2>{date}</h2>
         </div>
       </div>
     </div>
